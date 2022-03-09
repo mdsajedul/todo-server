@@ -1,10 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const todoHandler = require('./route-handler/todoHandler')
 
 const app = express();
 app.use(express.json());
 
+// database connection 
+mongoose
+    .connect("mongodb://localhost/todos")
+    .then(()=> console.log('Database connection successfull'))
+    .catch((err)=>console.log(err));
 
+
+
+// routes
+
+app.get('/todo',todoHandler);
 
 
 // port for server 
