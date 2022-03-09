@@ -15,7 +15,7 @@ mongoose
 
 // routes
 
-app.get('/todo',todoHandler);
+app.use('/todo',todoHandler);
 
 
 // port for server 
