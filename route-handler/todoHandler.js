@@ -7,7 +7,7 @@ const Todo = require('../Model/todoModel');
 
 //GET all todos
 router.get('/', async (req,res)=>{
-     res.send('Home of todo')
+     await Todo.find()
 })
 
 //Get todo by ID
@@ -41,7 +41,24 @@ router.post('/all', async (req,res)=>{
 
 // PUT todo by id 
 router.put('/:id', async (req,res)=>{
+    const result =  await Todo.findByIdAndUpdate({_id: req.params.id},{
+        $set:{
+            status:'active'
+        }
+    })
+    .then(data=>{
+        res.status(200).json(data)
+    })
+    .catch(err=>{
+        if(err){
+            res.status(500).json({error:"There is an server side error"});
+        }
+        else{
+            res.status(200).json({message:"Todos are added successfully added"})
+        }
+    })
 
+    console.log(result)
 })
 
 //DELETE todo 
