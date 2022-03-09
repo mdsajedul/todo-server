@@ -7,12 +7,31 @@ const Todo = require('../Model/todoModel');
 
 //GET all todos
 router.get('/', async (req,res)=>{
-     await Todo.find()
+     await Todo.find({status:'active'}).select({
+         _id:0,
+         date:0
+     })
+     .limit(2)
+     .exec((err,data)=>{
+        if(err){
+            res.status(500).json({error:'There is an error'})
+        }
+        else{
+            res.status(200).json({result:data,message:'Success'})
+        }
+     })
+     
 })
 
 //Get todo by ID
 router.get('/:id',async (req,res)=>{
-
+    await Todo.find({_id:req.params.id})
+    .then(data=>{
+        res.status(200).json({result:data,message:'Success'})
+    })
+    .catch(err=>{
+        res.status(500).json({error:'There is an error'})
+    })
 })
 
 // POST todo 
