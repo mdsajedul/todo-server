@@ -20,5 +20,21 @@ router.post('/signup',async (req,res)=>{
     }
 })
 
+router.post('/login', async(req,res)=>{
+    const user = await User.find({username:req.body.username});
+    if(user && user.length>0 ){
+        const isValidPassword = await bcrypt.compare(req.body.password,user[0].password);
+        if(isValidPassword){
+            res.send('Login Successful')
+        }
+        else{
+            res.status(401).json({error:'Authentication failed'})
+        }
+    }
+    else{
+        res.status(401).json({error:'Authentication failed'})
+    }
+})
+
 
 module.exports = router;
