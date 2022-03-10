@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const todoHandler = require('./route-handler/todoHandler')
+const todoHandler = require('./route-handler/todoHandler');
+const userHandler = require('./route-handler/userHandler');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,8 @@ mongoose
 // routes
 
 app.use('/todo',todoHandler);
+
+app.use('/user',userHandler);
 
 
 // port for server 
