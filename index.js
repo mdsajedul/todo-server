@@ -35,7 +35,7 @@ const defultErrorHandler =(err,req,res,next)=>{
     }
     res.status(500).json({error:err})
 }
-
+app.use(defultErrorHandler);
 app.listen(port,()=>{
     console.log(`Todo Server is running on PORT ${port}`);
 })

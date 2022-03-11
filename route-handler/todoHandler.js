@@ -2,11 +2,12 @@
 const express = require('express');
 const router = express.Router();
 const Todo = require('../Model/todoModel');
+const checkLogin = require('../middlewares/checkLogin');
 
 // all todos routes
 
 //GET all todos
-router.get('/', async (req,res)=>{
+router.get('/',checkLogin, async (req,res)=>{
      await Todo.find({status:'active'}).select({
          _id:0,
          date:0
